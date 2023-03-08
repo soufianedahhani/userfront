@@ -1,0 +1,111 @@
+<form #f="ngForm"   >
+<table>
+  <tr>
+    <td>
+      Nom
+    </td>
+    <td>
+      <input pInputText [(ngModel)]="user.nom" name="nom" required #nom="ngModel">
+      <small *ngIf="f.submitted && nom.invalid" class="p-error block">Nom réquis</small>
+
+    </td>
+
+  </tr>
+  <tr>
+    <td>
+      Prénom
+    </td>
+    <td>
+      <input pInputText [(ngModel)]="user.prenom"name="prenom" required #prenom="ngModel">
+      <small *ngIf="f.submitted && prenom.invalid" class="p-error block">Prénom réquis</small>
+    </td>
+  </tr>
+
+      <tr>
+  <td>
+    Nom d'utilisateur
+  </td>
+  <td>
+    <input pInputText [(ngModel)]="user.username"name="username" required #username="ngModel" >
+    <small *ngIf="f.submitted && username.invalid" class="p-error block">username réquis</small>
+
+  </td>
+</tr>
+  <tr>
+    <td>Email</td>
+    <td>
+      <input pInputText type="email"
+             [(ngModel)]="user.email" name="email"
+             #email="ngModel" required email>
+
+      <small *ngIf="f.submitted && email.invalid"
+             class="p-error"> email required
+
+      </small>
+    </td>
+  </tr>
+  <tr *ngIf="!idUser">
+    <td >
+      Mot de Passe
+    </td>
+    <td>
+      <p-password [(ngModel)]="user.password" name="password" required #password="ngModel"
+        [feedback]="false"
+        [toggleMask]="true"></p-password>
+      <small *ngIf="f.submitted && password.invalid" class="p-error block">password réquis</small>
+
+    </td>
+  </tr>
+  <tr *ngIf="!idUser">
+    <td>
+     Confirmer Mot de passe
+    </td>
+    <td>
+      <p-password [(ngModel)]="confirmPwd" name="confirmPwd" required #pwd2="ngModel"
+                  [feedback]="false"
+                  [toggleMask]="true"
+                  [pattern]="user.password"></p-password>
+      <small *ngIf="f.submitted && pwd2.invalid"
+              class="p-error block">pwd2 réquis</small>
+
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Role
+    </td>
+    <td>
+      <p-radioButton name="groupname"
+                     value="ROLE_ADMIN"
+                     label="Administrateur"
+                     [(ngModel)]="user.role"
+                      required #role="ngModel">
+      </p-radioButton>
+      <p-radioButton
+        name="groupname"
+        label="Utilisateur"
+        value="ROLE_USER"
+        [(ngModel)]="user.role"
+        required #role="ngModel">
+      </p-radioButton>
+      <small *ngIf="f.submitted && role.invalid"
+              class="p-error block">role réquis</small>
+    </td>
+  </tr>
+
+  <td>
+    <button  pButton label="Annuler"class="p-button-danger" type="reset"
+             (click)="annuler()"
+             ></button>
+    </td>
+
+  <td>
+    <button label="{{idUser? 'Modifier': 'Ajouter'}}"
+      pButton (click)="valider()"
+            class=" {{idUser?'p-button-warning': 'p-button-success'}}"
+
+    ></button>
+  </td>
+
+</table>
+</form>

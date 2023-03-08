@@ -1,0 +1,44 @@
+<button pButton label="New User" *ngxPermissionsOnly="['ROLE_ADMIN']"
+        icon="pi pi-plus"
+        class="p-button-success"
+        routerLink="/users/new">
+
+</button>
+
+<p-table [value]="users" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Email</th>
+      <th>Username</th>
+      <th>Role</th>
+      <th *ngxPermissionsOnly="['ROLE_ADMIN']">Action</th>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
+      <td>{{user.nom}}</td>
+      <td>{{user.prenom}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.role=='ROLE_ADMIN'? 'Administrateur': 'Utiisateur'}}</td>
+      <td *ngxPermissionsOnly="['ROLE_ADMIN']">
+        <button pTooltip="Supprimer"
+                pButton class="p-button-danger p-button-rounded"
+                icon="pi pi-trash"
+                style="margin-right: 10px"
+                (click)="removeUser(user.id)">
+        </button>
+        <button pTooltip="Editer"
+                tooltipPosition="top"
+                pButton class="p-button-warning p-button-rounded"
+                icon="pi pi-pencil"
+                routerLink="/users/edit/{{user.id}}"></button>
+
+      </td>
+
+    </tr>
+  </ng-template>
+</p-table>
